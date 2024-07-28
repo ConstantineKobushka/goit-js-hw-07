@@ -28,28 +28,16 @@ const images = [
 const galleryList = document.querySelector('.gallery');
 
 function createGallery(imagesData) {
-  imagesData.map(imagesItem => {
-    const html = `
-      <li class="gallery-item">
-        <img class="gallery-img" src="${imagesItem.url}" alt="${imagesItem.alt}" width="360" />
-      </li>`;
-    galleryList.insertAdjacentHTML('beforeend', html);
-  });
+  const html = imagesData
+    .map(imageItem => {
+      return `<li class="gallery-item">
+                <img class="gallery-img"
+                src="${imageItem.url}" 
+                alt="${imageItem.alt}" width="360" />
+              </li>`;
+    })
+    .join('');
+  galleryList.insertAdjacentHTML('beforeend', html);
 }
-
-// function createGallery(imagesData) {
-//   imagesData.map(imagesItem => {
-//     const galleryItem = document.createElement('li');
-//     galleryItem.classList.add('gallery-item');
-//     const galleryImg = document.createElement('img');
-//     galleryImg.classList.add('gallery-img');
-//     galleryImg.setAttribute('src', `${imagesItem.url}`);
-//     galleryImg.setAttribute('alt', `${imagesItem.alt}`);
-//     galleryImg.setAttribute('width', '360');
-//     galleryImg.setAttribute('height', '300');
-//     galleryItem.append(galleryImg);
-//     galleryList.append(galleryItem);
-//   });
-// }
 
 createGallery(images);
