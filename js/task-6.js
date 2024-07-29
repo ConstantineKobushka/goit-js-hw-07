@@ -10,15 +10,16 @@ function getRandomHexColor() {
 
 function createBoxes(amount) {
   let size = 30;
+  const html = [];
   for (let i = 0; i < amount; i++) {
     let div = document.createElement('div');
     div.style.width = `${size}px`;
     div.style.height = `${size}px`;
     div.style.backgroundColor = getRandomHexColor();
-    boxes.append(div);
+    html.push(div);
     size += 10;
   }
-  return boxes.innerHTML;
+  boxes.append(...html);
 }
 
 function destroyBoxes() {
