@@ -1,11 +1,33 @@
-const controls = document.querySelector('#controls');
-const boxes = document.querySelector('#boxes');
-const controlsInput = controls.querySelector('input');
+const controlsEl = document.querySelector('#controls');
+const boxesEl = document.querySelector('#boxes');
+const controlsInput = controlsEl.querySelector('input');
 
-function getRandomHexColor() {
-  return `#${Math.floor(Math.random() * 16777215)
-    .toString(16)
-    .padStart(6, 0)}`;
+controlsEl.addEventListener('click', onControlseElClick);
+
+function onControlseElClick(event) {
+  let count = +controlsInput.value;
+
+  if (event.target.hasAttribute('data-create')) {
+    if (count >= 1 && count <= 100) {
+      destroyBoxes();
+      createBoxes(count);
+      controlsInput.value = '';
+      count = 0;
+      controlsInput.focus();
+    }
+    controlsInput.value = '';
+    count = 0;
+    controlsInput.focus();
+  } else if (event.target.hasAttribute('data-destroy')) {
+    destroyBoxes();
+    controlsInput.value = '';
+    count = 0;
+    controlsInput.focus();
+  }
+}
+
+function destroyBoxes() {
+  boxesEl.innerHTML = '';
 }
 
 function createBoxes(amount) {
@@ -19,31 +41,11 @@ function createBoxes(amount) {
     html.push(div);
     size += 10;
   }
-  boxes.append(...html);
+  boxesEl.append(...html);
 }
 
-function destroyBoxes() {
-  boxes.innerHTML = '';
+function getRandomHexColor() {
+  return `#${Math.floor(Math.random() * 16777215)
+    .toString(16)
+    .padStart(6, 0)}`;
 }
-
-controls.addEventListener('click', function (e) {
-  let count = +controlsInput.value;
-
-  if (e.target.hasAttribute('data-create')) {
-    if (count >= 1 && count <= 100) {
-      destroyBoxes();
-      createBoxes(count);
-      controlsInput.value = '';
-      count = 0;
-      controlsInput.focus();
-    }
-    controlsInput.value = '';
-    count = 0;
-    controlsInput.focus();
-  } else if (e.target.hasAttribute('data-destroy')) {
-    destroyBoxes();
-    controlsInput.value = '';
-    count = 0;
-    controlsInput.focus();
-  }
-});

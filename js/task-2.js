@@ -25,19 +25,22 @@ const images = [
   },
 ];
 
-const galleryList = document.querySelector('.gallery');
+const galeryEl = document.querySelector('.gallery');
 
-function createGallery(imagesData) {
-  const html = imagesData
-    .map(imageItem => {
-      return `<li class="gallery-item">
-                <img class="gallery-img"
-                src="${imageItem.url}" 
-                alt="${imageItem.alt}" width="360" />
-              </li>`;
-    })
-    .join('');
-  galleryList.insertAdjacentHTML('beforeend', html);
+initGallery(images, galeryEl);
+
+function initGallery(images, container) {
+  renderGallery(images, container);
 }
 
-createGallery(images);
+function renderGallery(images, container) {
+  const markup = images.map(createGalleryItemMarkup).join('');
+  container.insertAdjacentHTML('beforeend', markup);
+}
+
+function createGalleryItemMarkup({ url, alt }) {
+  return `
+      <li class="gallery-item">
+        <img class="gallery-img" src="${url}" alt="${alt}" />
+      </li>`;
+}

@@ -1,21 +1,17 @@
-const loginForm = document.querySelector('.login-form');
+const loginFormEl = document.querySelector('.login-form');
 
-function submitLoginFormHandler(event) {
+loginFormEl.addEventListener('submit', onloginFormElSubmit);
+
+function onloginFormElSubmit(event) {
   event.preventDefault();
-  const form = event.target;
-  const email = form.elements.email.value.trim();
-  const password = form.elements.password.value.trim();
-  let loginFormData = {};
-  if (email !== '' && password !== '') {
-    loginFormData = {
-      email,
-      password,
-    };
-    console.log(loginFormData);
-  } else {
+
+  const email = event.target.elements.email.value.trim();
+  const password = event.target.elements.password.value.trim();
+
+  if (email === '' || password === '') {
     alert('All form fields must be filled in');
   }
-  form.reset();
+  const loginData = { email, password };
+  console.log(loginData);
+  loginFormEl.reset();
 }
-
-loginForm.addEventListener('submit', submitLoginFormHandler);
